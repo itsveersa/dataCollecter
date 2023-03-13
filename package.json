@@ -1,0 +1,26 @@
+{
+  "name": "datacollecter",
+  "version": "1.0.0",
+  "description": "Reading CSV file and storing all related info to database",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsveersa/dataCollecter.git"
+  },
+  "keywords": [
+    "read-csv"
+  ],
+  "author": "itsveersa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itsveersa/dataCollecter/issues"
+  },
+  "homepage": "https://github.com/itsveersa/dataCollecter#readme",
+  "dependencies": {
+    "csv": "^6.2.8",
+    "csv-parse": "^5.3.6"
+  }
+}
