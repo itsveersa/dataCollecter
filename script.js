@@ -5,50 +5,33 @@
  */
 
 
+
 const fs = require('fs');
 const { parse } = require('csv-parse');
 
-const columns = ['resumeid'];
+const columns = ['CTC'];
 
-let key = [];
+let key;
 
 
 
-fs.createReadStream("sample.csv")
-    .pipe(parse({ delimiter: ",", from_line: "1" }))
-    .on("data",function (row) { 
 
-        
 
-        for (let i = 0; i < Object.keys(row).length;i++) {
-           if(columns.indexOf(row[i]) > -1) {
-           console.log(i)
-          
-             key =  i;
-             
 
-             
-
-    
-         
-       
-          
-       
-        
-            }
-       
-
-        }
-       
-        console.log(row[key]);
-        
-    })
-     
 
 
 const runScript = (data) => {
-    data = row[key]
-    return [row[key]];
+    fs.createReadStream(data.path)
+        .pipe(parse({ delimiter: ",", from_line: "1" }))
+        .on("data", function (row) {
+            for (let i = 0; i < Object.keys(row).length; i++) {
+                if (columns.indexOf(row[i]) > -1) {
+                    key = i;
+                }
+            }
+            console.log(row[key]);
+        });
+    return [];
 }
 
 module.exports = {

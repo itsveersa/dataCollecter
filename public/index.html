@@ -6,13 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body style="margin: 3%;
+text-align: center;
+color: coral;
+background: #141E30;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+">
+
     <h1>Upload The Data</h1>
+    <br>
     <form action="/action_page.php">
-        <input type="file" id="myFile" name="filename">
-        
+        <input type="file" id="file" name="file">
         <input type="submit">
       </form>
-
+     
 </body>
+<script>
+    const fileInput = document.querySelector('input[type="file"]');
+    fileInput.addEventListener('change', async () => {
+        let formData = new FormData();
+        formData.append("file", fileInput.files[0])
+        await fetch('/upload-candidate', {
+            method: "POST",
+            body: formData
+        })
+        fileInput.value = '';
+    });
+</script>
 </html>

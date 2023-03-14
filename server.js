@@ -1,14 +1,28 @@
 const express = require('express');
+const multer  = require('multer');
+const os = require('os');
 const sqlite3 = require('sqlite3').verbose();
 const { runScript } = require('./script');
-const db = new sqlite3.Database(':memory:');
+
+var bodyParser = require('body-parser');  
+// Create application/x-www-form-urlencoded parser  
+var urlencodedParser = bodyParser.urlencoded({ extended: false })  
 
 const app = express();
 
+const upload = multer({ dest: os.tmpdir() });
+
+app.use(urlencodedParser);
+const db = new sqlite3.Database(':memory:');
+
+
+
 app.use(express.static('public'))
 
-app.post('/upload-candidate', (req, res) => {
-    const script_data = runScript(req.body);
+app.post('/upload-candidate', upload.single('file'), (req, res) => {
+    const file = req.file;
+    const script_data = runScript(file);
+    console.log("result", script_data);
     db.serialize(() => {
         db.run("CREATE TABLE lorem (info TEXT)");
 
